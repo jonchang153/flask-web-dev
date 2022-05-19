@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
-{% block title %}Test{% endblock %}
+{% block title %}Submit{% endblock %}
 
 {% block nav %}
 <ul>
-  <li><a href="{{ url_for('main') }}">Overview</a></li>
-  <li><a href="{{ url_for('test') }}" class="active">Test Our Product</a></li>
-  <li><a href="{{ url_for('about') }}">About the Creators</a></li>
+  <li><a href="{{ url_for('submit') }}" class="active">Submit a message</a></li>
+  <li><a href="{{ url_for('view') }}">View messages</a></li>
 </ul>
 {% endblock %}
 
-{% block header %}<h2>Test Our Product</h2>{% endblock %}
+{% block header %}<h2>Submit</h2>{% endblock %}
 
 <!-- CONTENT BEGINS HERE -->
 
@@ -19,20 +18,4 @@
       <input type="text" name="target" id="textbox">
       <input type="submit" value="Submit">
   </form>
-
-  {% if error %}
-    <p>Submission was not valid. Please try again.<p>
-  {% endif %}
-
-  {% if target %}
-    <p>The prediction for {{target}} is . Below is an interactive plot that displays the model's predictions on the most recent 60 days.</p>
-
-    <!-- boilerplate code for plotting graphJSON as plotly -->
-    <div id='chart' class='chart'></div>
-    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-    <script type='text/javascript'>
-      var graphs = {{graphJSON | safe}};
-      Plotly.plot('chart',graphs,{});
-    </script>
-  {% endif %}
 {% endblock %}
