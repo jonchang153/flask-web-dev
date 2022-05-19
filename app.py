@@ -1,27 +1,9 @@
 from flask import Flask, g, render_template, request
 import sqlite3
 
-# import sklearn as sk
-# import matplotlib.pyplot as plt
-# import numpy as np
-
-# from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-# from matplotlib.figure import Figure
-
-# import io
-# import base64
-
-
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST', 'GET'])
-def submit():
-    return render_template('submit.html')
-
-@app.route('/view/')
-def view():
-    return render_template('view.html')
 
 def get_message_db():
     # write some helpful comments here
@@ -29,7 +11,48 @@ def get_message_db():
         return g.message_db
     except:
         g.message_db = sqlite3.connect("messages_db.sqlite")
-        cmd = '' # replace this with your SQL query
+        cmd = \
+        """
+        CREATE TABLE IF NOT EXISTS messages(
+            id integer
+            handle text
+            message text)
+        """
         cursor = g.message_db.cursor()
         cursor.execute(cmd)
         return g.message_db
+
+
+def insert_message(request):
+    message = request.form['message']
+    handle = request.form['handle']
+
+    db = get_message_db()
+
+    cmd = \
+    """
+    SELECT COUNT(*) as id
+    INSERT INTO messages VALUES (id+1, handle, message) 
+    """
+
+    cursor = db.cursor()
+    cursor.execute(cmd)
+
+    db.commit()
+    db.close()
+
+    return message, handle
+
+
+@app.route('/', methods=['POST', 'GET'])
+def submit():
+    if request.method == 'GET':
+        return render_template('submit.html')
+    else:
+        insert_message(request)
+        return render_template('submit.html', submitted=True)
+
+
+@app.route('/view/')
+def view():
+    return render_template('view.html')
