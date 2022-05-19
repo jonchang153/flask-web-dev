@@ -8,14 +8,17 @@
 </ul>
 {% endblock %}
 
-{% block header %}<h2>Submit</h2>{% endblock %}
+{% block header %}<h2>Submit a message</h2>{% endblock %}
 
 <!-- CONTENT BEGINS HERE -->
 
 {% block content %}
-  <p>Please specify a stock to predict.</p>
   <form method="post">
-      <input type="text" name="target" id="textbox">
-      <input type="submit" value="Submit">
+      <p>Your message:</p>
+      <input type="text" name="message" id="message">
+      <p>Your name or handle:</p>
+      <input type="text" name="name" id="name">
+      <br><br>
+      <input type="submit" value="Submit message">
   </form>
 {% endblock %}
