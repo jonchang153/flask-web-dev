@@ -13,5 +13,15 @@
 <!-- CONTENT BEGINS HERE -->
 
 {% block content %}
+  This is a list of up to 5 random messages in the database. The number gives the order in which they were submitted.
+  <br>
+  {% for message in messages %}
+    <br>
+    <b>{{ message[0] }}:</b> "{{ message[1] }}"
+    <br>
+    <i>- {{ message[2] }}</i>
+    <br>
+
+  {% endfor %}
 
 {% endblock %}
