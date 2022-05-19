@@ -14,12 +14,10 @@
 
 {% block content %}
   <form method="post">
-      Your message:
-      <br>
+      <label for="message">Your message:</label><br>
       <textarea name="message" id="message"></textarea>
       <br><br>
-      Your name or handle:
-      <br>
+      <label for="handle">Your name or handle:</label><br>
       <input type="text" name="handle" id="handle">
       <br><br>
       <input type="submit" value="Submit message">
@@ -27,6 +25,15 @@
 
   {% if submitted %}
     <br>
-    Thanks for submitting a message!
+    You have successfully submitted the following message, along with the following handle:
+    <br><br>
+    "{{ message }}"
+    <br>
+    <i>- {{ handle }}</i>
+  {% endif %}
+
+  {% if error %}
+    <br>
+    There was an error with the submission. Please try again.
   {% endif %}
 {% endblock %}
