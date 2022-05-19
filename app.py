@@ -1,4 +1,5 @@
 from flask import Flask, g, render_template, request
+import sqlite3
 
 # import sklearn as sk
 # import matplotlib.pyplot as plt
@@ -21,3 +22,14 @@ def submit():
 @app.route('/view/')
 def view():
     return render_template('view.html')
+
+def get_message_db():
+    # write some helpful comments here
+    try:
+        return g.message_db
+    except:
+        g.message_db = sqlite3.connect("messages_db.sqlite")
+        cmd = '' # replace this with your SQL query
+        cursor = g.message_db.cursor()
+        cursor.execute(cmd)
+        return g.message_db
