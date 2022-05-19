@@ -14,11 +14,19 @@
 
 {% block content %}
   <form method="post">
-      <p>Your message:</p>
+      Your message:
+      <br>
       <textarea name="message" id="message"></textarea>
-      <p>Your name or handle:</p>
-      <input type="text" name="name" id="name">
+      <br><br>
+      Your name or handle:
+      <br>
+      <input type="text" name="handle" id="handle">
       <br><br>
       <input type="submit" value="Submit message">
   </form>
+
+  {% if submitted %}
+    <br>
+    Thanks for submitting a message!
+  {% endif %}
 {% endblock %}
