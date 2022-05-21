@@ -31,7 +31,7 @@ def get_message_db():
         return g.message_db
 
 
-def insert_message(request):
+def insert_message():
     message = request.form['message']
     handle = request.form['handle']
 
@@ -59,7 +59,7 @@ def submit():
         return render_template('submit.html')
     else:
         try:
-            message, handle = insert_message(request)
+            message, handle = insert_message()
             return render_template('submit.html', submitted=True, message=message, handle=handle)
         except:
             return render_template('submit.html', error=True)
